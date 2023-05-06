@@ -54,7 +54,7 @@ export interface Sprites {
             front_default: string;
             front_female: string;
         }
-        officialArtwork: {
+        "official-artwork": {
             front_default: string;
         };
     };
