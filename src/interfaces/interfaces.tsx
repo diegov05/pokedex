@@ -37,21 +37,25 @@ export interface Stat {
 }
 
 export interface Sprites {
-    frontDefault: string;
-    frontShiny: string;
+    front_default: string;
+    front_shiny: string;
     frontFemale?: string;
-    frontShinyFemale?: string;
+    front_shiny_Female?: string;
     backDefault: string;
     backShiny: string;
     backFemale?: string;
     backShinyFemale?: string;
     other: {
         dreamWorld: {
-            frontDefault: string;
+            front_default: string;
             frontFemale?: string;
         };
+        home: {
+            front_default: string;
+            front_female: string;
+        }
         officialArtwork: {
-            frontDefault: string;
+            front_default: string;
         };
     };
 }
