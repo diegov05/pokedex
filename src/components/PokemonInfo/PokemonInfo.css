@@ -1,0 +1,7 @@
+.list-item>div {
+    opacity: 0;
+}
+
+.list-item:hover>div {
+    opacity: 100;
+}
