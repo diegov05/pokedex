@@ -4,18 +4,30 @@ export interface Pokemon {
     height: number;
     weight: number;
     baseExperience: number;
-    abilities: Ability[];
+    abilities: Abilities[];
     types: Type[];
     stats: Stat[];
     sprites: Sprites;
 }
 
+export interface Abilities {
+    ability: {
+        id: number;
+        name: string;
+        url: string;
+        isHidden: boolean;
+        slot: number;
+        effect_entries: AbilityEffect[];
+    }
+}
+
 export interface Ability {
     id: number;
     name: string;
+    url: string;
     isHidden: boolean;
     slot: number;
-    effectEntries: AbilityEffect[];
+    effect_entries: AbilityEffect[];
 }
 
 export interface AbilityEffect {
