@@ -44,8 +44,8 @@ const PokemonInfo: React.FC<IPokemonInfoProps> = (props) => {
 
     return (
         <>
-            <div className='flex flex-col gap-8 w-full h-full'>
-                <div className='flex flex-row justify-between w-ful'>
+            <div className='flex flex-col gap-8 h-full'>
+                <div className='flex flex-row gap-8'>
                     <div>
                         <h1 className='text-white font-black uppercase text-xs sm:text-sm md:text-base lg:text-base xl:text-base'>Weight</h1>
                         <p className='text-white font-normal text-xs sm:text-sm md:text-base lg:text-base xl:text-base'>{pokemon.weight}kg</p>
