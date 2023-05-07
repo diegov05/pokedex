@@ -11,14 +11,20 @@ export interface Pokemon {
 }
 
 export interface Ability {
-    ability: {
+    id: number;
+    name: string;
+    isHidden: boolean;
+    slot: number;
+    effectEntries: AbilityEffect[];
+}
+
+export interface AbilityEffect {
+    effect: string;
+    language: {
         name: string;
         url: string;
     };
-    isHidden: boolean;
-    slot: number;
 }
-
 export interface Type {
     slot: number;
     type: {
