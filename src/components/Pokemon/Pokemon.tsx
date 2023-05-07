@@ -4,17 +4,23 @@ import axios from "axios"
 
 import "./Pokemon.css"
 
-const Pokemon: React.FC = () => {
+export interface IPokemonProps {
+    pokemon: string
+}
+
+const Pokemon: React.FC<IPokemonProps> = (props) => {
 
     const [pokemon, setPokemon] = useState<PokemonInterface | null>(null)
 
+    const pokemonName = props.pokemon
+
     useEffect(() => {
         const fetchPokemon = async () => {
-            const response = await axios.get("https://pokeapi.co/api/v2/pokemon/1")
+            const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
             setPokemon(response.data)
         }
         fetchPokemon()
-    }, [])
+    }, [pokemonName])
 
     if (!pokemon) {
         return <div>Loading...</div>

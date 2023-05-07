@@ -3,15 +3,21 @@ import { Pokemon, Ability, Abilities } from '../../interfaces/interfaces';
 import axios from 'axios';
 import "./PokemonInfo.css"
 
-const PokemonInfo: React.FC = () => {
+interface IPokemonInfoProps {
+    pokemon: string
+}
+
+const PokemonInfo: React.FC<IPokemonInfoProps> = (props) => {
 
     const [pokemon, setPokemon] = useState<Pokemon | null>(null)
     const [abilities, setAbilities] = useState<Ability[] | null>(null)
 
+    const pokemonName = props.pokemon
+
     useEffect(() => {
         try {
             const fetchData = async () => {
-                const response = await axios.get("https://pokeapi.co/api/v2/pokemon/1")
+                const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
                 setPokemon(response.data)
 
                 const abilityPromises = response.data.abilities.map(async (ability: Abilities) => {
@@ -26,7 +32,7 @@ const PokemonInfo: React.FC = () => {
         catch (error) {
             console.error(error)
         }
-    }, [])
+    }, [pokemonName])
 
     if (!pokemon) {
         return <div>Loading...</div>

@@ -2,10 +2,15 @@ import React, { useEffect, useState } from 'react';
 import axios from "axios"
 import { Pokemon } from '../../interfaces/interfaces';
 
+export interface ISelectBarProps {
+    handleChangePokemon: (pokemon: string) => void
+}
 
-const SelectBar: React.FC = () => {
+const SelectBar: React.FC<ISelectBarProps> = (props) => {
 
     const [pokemons, setPokemons] = useState<Pokemon[] | null>(null)
+
+    const changePokemon = props.handleChangePokemon
 
     useEffect(() => {
         try {
@@ -35,7 +40,7 @@ const SelectBar: React.FC = () => {
     return (
         <div className='flex flex-col justify-start items-start gap-2'>
             <h3 className='text-[12px] sm:text-sm md:text-base lg:text-lg xl:text-xl font-black text-white uppercase'>Select a Pokemon:</h3>
-            <select className='p-2 text-xs xl:p-2 xl:text-base border-0 outline-0 bg-black text-white capitalize' name="pokemons" id="pokemons">
+            <select onChange={(e) => changePokemon(e.target.value)} className='p-2 text-xs xl:p-2 xl:text-base border-0 outline-0 bg-black text-white capitalize' name="pokemons" id="pokemons">
                 {pokemons.map((pokemon) => (
                     <option key={pokemon.id} className='bg-zinc-900 outline-0 border-0 capitalize' value={pokemon.name}>{`${pokemon.id >= 10 ? pokemon.id : "0" + pokemon.id} ${pokemon.name}`}
                     </option>
