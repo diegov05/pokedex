@@ -1,20 +1,38 @@
 import React, { useEffect, useState } from 'react';
-import { Pokemon } from '../../interfaces/interfaces';
+import { Pokemon, Ability, Abilities } from '../../interfaces/interfaces';
 import axios from 'axios';
+import "./PokemonInfo.css"
 
 const PokemonInfo: React.FC = () => {
 
     const [pokemon, setPokemon] = useState<Pokemon | null>(null)
+    const [abilities, setAbilities] = useState<Ability[] | null>(null)
 
     useEffect(() => {
-        const fetchPokemon = async () => {
-            const response = await axios.get("https://pokeapi.co/api/v2/pokemon/1")
-            setPokemon(response.data)
+        try {
+            const fetchData = async () => {
+                const response = await axios.get("https://pokeapi.co/api/v2/pokemon/1")
+                setPokemon(response.data)
+
+                const abilityPromises = response.data.abilities.map(async (ability: Abilities) => {
+                    const abilitiesResponse = await axios.get(ability.ability.url)
+                    return abilitiesResponse.data as Ability
+                })
+                const abilitiesData = await Promise.all(abilityPromises)
+                setAbilities(abilitiesData)
+            }
+            fetchData()
         }
-        fetchPokemon()
+        catch (error) {
+            console.error(error)
+        }
     }, [])
 
     if (!pokemon) {
+        return <div>Loading...</div>
+    }
+
+    if (!abilities) {
         return <div>Loading...</div>
     }
 
@@ -34,8 +52,14 @@ const PokemonInfo: React.FC = () => {
                 <div className='flex flex-row justify-between w-ful'>
                     <div>
                         <h1 className='text-white font-black uppercase text-xs sm:text-sm md:text-base lg:text-base xl:text-base'>Abilities</h1>
-                        <ul>{pokemon.abilities.map((ability) => (
-                            <li className='text-white font-normal capitalize text-xs sm:text-sm md:text-base lg:text-base xl:text-base'>- {ability.ability.name}</li>
+                        <ul>{abilities.map((ability: Ability) => (
+                            <>
+                                <li key={ability.id} className='list-item text-white font-normal capitalize text-xs sm:text-sm md:text-base lg:text-base xl:text-base'>- {ability.name}
+                                    <div key={ability.id + 2} className='absolute rounded-xl p-4 h-max w-[20ch] bg-black '><span className='text-white'>{ability.effect_entries.map((effect) => (
+                                        <p>{effect.effect}</p>
+                                    ))}</span></div>
+                                </li>
+                            </>
                         ))}</ul>
                     </div>
                 </div>
