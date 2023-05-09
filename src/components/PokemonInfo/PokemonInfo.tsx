@@ -61,9 +61,7 @@ const PokemonInfo: React.FC<IPokemonInfoProps> = (props) => {
                         <ul>{abilities.map((ability: Ability) => (
                             <>
                                 <li key={ability.id} className='list-item text-white font-normal capitalize text-xs sm:text-sm md:text-base lg:text-base xl:text-base'>- {ability.name}
-                                    <div key={ability.id + 2} className='absolute rounded-xl p-4 h-max w-[20ch] bg-black '><span className='text-white'>{ability.effect_entries.map((effect) => (
-                                        <p>{effect.effect}</p>
-                                    ))}</span></div>
+                                    <div key={ability.id + 2} className='absolute rounded-xl p-4 h-max w-[20ch] bg-black '><span className='text-white'>{ability.effect_entries[1].effect.slice(0, 200)}</span></div>
                                 </li>
                             </>
                         ))}</ul>
